@@ -1,0 +1,55 @@
+In recent weeks, a conflict has been ongoing between Israel and Hamas in the Gaza Strip. This conflict began following a Hamas atrocity attack on Israel, resulting in the tragic loss of more than 1,300 civilian lives and soldiers. In response, Israel initiated airstrikes and ground operation in Gaza. Public opinion regarding this war is evolving daily. Your task is to classify tweets related to the Gaza-Israel war into one of the following categories:
+  Class 1, Class 2, Class 3, Class 0, or Class 9,10,11. Below, we provide clear and detailed guidance for each class.
+  Class 1: Condemn Israeli attacks, refer to Israeli attacks as war crimes, or demand a ceasefire.
+  - Tweets in this category should be identified when they explicitly criticize Israel and Israeli military actions or refer to them as war crimes.
+  - Also, tweets that call for a ceasefire without necessarily condemning Israel should be classified as Class 1. The focus is on Gaza humanitarian crisis and ending the conflict fast as possible.ֹ
+- Tweets that opposing giving aid to Israel because Israel use that aid against Palestinians. Pay attention, tweets that opposing giving aid to Israel because of the controversy between Republicans and Democrats about IRS funding and taxes should not be label as class 1.
+- Pay attention, many tweets will discuss the need for humanitarian aid to Gaza and humanitarian pause. It is not mean that are immediately belong to this class. Many pro-Israeli tweets also see the need for keep Palestinians civilians out of the war circle. On the other hand if the tweet emphasize things like war crimes that Israel does it may suggest that it should be label as class 1.
+  Class 2: Expressing a balanced attitude towards the conflict between Israel and the Palestinians. 
+  - This class is for tweets that don't fall neatly into Class 1 or Class 3 but involve nuanced opinions regarding the conflict.
+  - Tweets discussing the need for humanitarian aid or humanitarian pause in Gaza without explicitly condemning Israel. These tweets express balanced attitude by recognizing the humanitarian aspect of the situation.
+- the tweets differentiate between Hamas as a terrorist organization and innocent people in gaza who needs humanitarian help.
+- tweets that represent a wish to give humanitarian aid to gaza, maybe by egypt.
+  Class 3: Support Israel or condemn Hamas as terrorists.
+  - Tweets that express support for Israel or label Hamas as a terrorist organization should be classified under Class 3.
+- Tweets that condemn Hamas terrorist attack against Israel, including the murder of civilians, families and babies and the capturing of hostages.
+- tweets that refer to Hamas as ISIS or as evil jihadists.
+  - Ensure that the tweet demonstrates a clear stance of support for Israel and or strong condemnation of Hamas as terrorists.
+  - Emphasize Hamas responsibility to the situation in Gaza.
+  Class 0: Unrelated to the conflict.
+  - If a tweet is unrelated to the Gaza-Israel conflict, it should be classified as Class 0.
+  - Tweets discussing unrelated topics or not mentioning the conflict in any way should be Class 0.
+  - Political controversy is not connected to Israel aid - Class 0
+- pay attention: Tweets that refer to internal events  in the united states, as example the murder of 6 years old Palestinian-American girl should be in class 0
+- Class 9: Relating to the conflict between Israel and Gaza, but focus on internal American issues and politics without taking a clear side in the conflict between Israel and Gaza.    If a tweet is related to Gaza-Israel conflict, but it has ambiguous massage which cannot be inferred, it should be classified as Class 9
+- Class 10: If a tweet is related to Israel aid, but it is focusing on the American domestic political controversy between Republicans and Democrats about taxes and IRS funding it should be labeled as class 10. 
+   Pay attention that not every controversy between Democrats and Republicans should be labeled as class 10. If the controversy is not connected to Israel aid it should be labeled as class 0.
+- Class 11: Tweets that their main focus is condemning Islamophobia and Antisemitism inside the United States (for example in universities) and not focus about the support for Israel or Gaza
+  Examples:
+Tweet: "Russia &amp;Hamas are both killers.Stand with #Biden and  #freedom and #democracy . This is clearly the right policy for #USA #Ukraine RussiaWar #IsrealPalestineconflict"
+  ANSWER: 3
+Tweet: "I stand with the Palestinian people. My heart aches for the families who have lost loved ones. We can not stand as silent witnesses to children"
+  ANSWER: 1
+Tweet: "I am closely monitoring the situation in Israel with great concern.  My heartfelt condolences go out to the families who have tragically lost their loved ones in this abhorrent attack on innocent civilians.  This is absolutely unacceptable."
+  ANSWER: 3
+Tweet: "Hamas made terrorist attacks against Israel. The need for humanitarian assistance in Gaza."
+  ANSWER: 2
+Tweet: "The NDAA passed with more support from Democrats than Republicans after their extreme attempts to play political games with our national security."
+  ANSWER: 0
+Tweet: "Without question, any president — Republican or Democrat — that wants to take us to war or commit significant acts of war has to come to Congress..."
+  ANSWER: 9
+Tweet: "Handing $1T to for-profit war contractors who have failed their audits 6 years in a row while gutting safety net programs families rely on is cruel policy. Today, I voted NO on FY24 Defense Authorization, a budget that promotes never-ending war at the expense of working families."
+  ANSWER: 0
+Tweet: "Beyond breaking the American people's trust. Refusing to comply with immigration laws enacted by Congress is one of the MANY impeachable offenses by Secretary Mayorkas that is putting the American people at risk."
+  ANSWER: 0
+Tweet: "So Bad"
+  ANSWER: 0  
+Tweet: "Great to meet with local members of the @jfederations this morning. Now more than ever, it is essential that we continue our work together to support our Jewish community and combat antisemitism and hatred in all forms."
+  ANSWER: 11
+Tweet: ".@SpeakerJohnson has no intention of making meaningful progress at the border, even if it means abandoning our friends in Israel, Ukraine, and Taiwan."
+  ANSWER: 9
+Tweet: "I signed an Executive Order allowing the U.S. to issue sanctions against those who direct or participate in acts of violence against civilians in the West Bank, including extremist settlers.
+Today’s action seeks to promote security for Israelis and Palestinians alike"
+  ANSWER: 2
+Tweet: {input}
+    ANSWER:

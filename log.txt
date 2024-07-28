@@ -1,0 +1,228 @@
+At: 2023-11-16 11:48:52.768825
+the files: ['2023-11-05_16-37-40__2023-11-15_23-37-48_IsraelSentimentTweet_classified.xlsx', '2023-11-15_23-37-48__2023-11-16_09-41-05_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us.xlsx
+
+At: 2023-11-16 14:56:23.140417
+the files: ['2023-10-07_06-35-12__2023-11-05_16-37-40_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-16__11_48.xlsx
+
+At: 2023-11-16 17:53:07.772596
+the files: ['2023-10-07_06-35-12__2023-11-05_16-37-40_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-16__14_56.xlsx
+
+At: 2023-11-16 19:24:47.310889
+the files: ['2023-11-16_09-41-05__2023-11-16_18-08-38_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-16__17_53.xlsx
+
+At: 2023-11-19 11:15:03.644578
+the files: ['2023-11-16_18-08-38__2023-11-19_09-24-11_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-16__19_24.xlsx
+
+At: 2023-11-20 12:40:45.079517
+the files: ['2023-11-19_09-24-11__2023-11-20_09-22-22_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-19__11_15.xlsx
+
+At: 2023-11-21 12:33:40.323866
+the files: ['2023-11-20_09-22-22__2023-11-21_10-08-10_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-20__12_40.xlsx
+
+At: 2023-11-22 11:54:11.315669
+the files: ['2023-11-21_10-08-10__2023-11-22_09-27-06_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-21__12_33.xlsx
+
+At: 2023-11-23 15:37:14.989685
+the files: ['2023-11-22_09-27-06__2023-11-23_09-40-17_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-22__11_54.xlsx
+
+At: 2023-11-26 11:29:00.711888
+the files: ['2023-11-23_09-40-17__2023-11-26_09-39-40_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-23__15_37.xlsx
+
+At: 2023-11-27 16:11:15.224187
+the files: ['2023-11-26_09-39-40__2023-11-27_13-36-00_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-26__11_29.xlsx
+
+At: 2023-11-28 11:45:59.294566
+the files: ['2023-11-27_13-36-00__2023-11-28_09-57-26_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-27__16_11.xlsx
+
+At: 2023-11-29 12:39:13.950249
+the files: ['2023-11-28_09-57-26__2023-11-29_10-02-30_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-28__11_45.xlsx
+
+At: 2023-11-30 11:01:59.063165
+the files: ['2023-11-29_10-02-30__2023-11-30_09-16-02_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-29__12_39.xlsx
+
+At: 2023-12-03 19:57:09.363962
+the files: ['2023-11-30_09-16-02__2023-12-03_18-44-22_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-11-30__11_01.xlsx
+
+At: 2023-12-04 11:31:47.002268
+the files: ['2023-12-03_18-44-22__2023-12-04_09-09-24_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-03__19_57.xlsx
+
+At: 2023-12-05 12:04:20.245531
+the files: ['2023-12-04_09-09-24__2023-12-05_10-23-34_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-04__11_31.xlsx
+
+At: 2023-12-05 12:33:36.792892
+the files: ['2023-10-07_06-00-00__2023-11-29_23-28-24_clustered_with_labels.xlsx']
+was merged into the file: all_data_uk.xlsx
+
+At: 2023-12-06 11:17:47.307280
+the files: ['2023-12-05_19-02-11__2023-12-06_09-10-29_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-05__12_04.xlsx
+
+At: 2023-12-06 15:56:14.202216
+the files: ['2023-12-05_19-02-11__2023-12-06_09-10-29_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_try.xlsx
+
+At: 2023-12-06 16:02:41.167749
+the files: ['IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_try.xlsx
+
+At: 2023-12-06 16:11:34.116311
+the files: ['IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-06__16_02.xlsx
+
+At: 2023-12-07 10:18:09.794536
+the files: ['2023-12-06_09-10-29__2023-12-07_09-08-17_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-06__11_17.xlsx
+
+At: 2023-12-07 14:56:10.884097
+the files: ['to_gpt_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-07__10_18.xlsx
+
+At: 2023-12-09 22:44:27.840265
+the files: ['to_gpt_IsraelSentimentTweetEurope_classified.xlsx']
+was merged into the file: all_data_uk__updated_to_2023-11-29_23_28.xlsx
+
+At: 2023-12-10 12:09:57.646980
+the files: ['us_to_gpt_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-07__14_56.xlsx
+
+At: 2023-12-11 11:43:15.099863
+the files: ['2023-12-09_22-55-17__2023-12-11_09-15-41_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-10__12_09.xlsx
+
+At: 2023-12-12 14:16:05.531200
+the files: ['2023-12-11_09-15-41__2023-12-12_09-49-42_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-11__11_43.xlsx
+
+At: 2023-12-13 10:44:04.801584
+the files: ['2023-12-12_09-49-42__2023-12-13_09-23-37_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-12__14_16.xlsx
+
+At: 2023-12-14 09:22:16.045419
+the files: ['2023-12-13_09-23-37__2023-12-14_08-27-06_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-13__10_44.xlsx
+
+At: 2023-12-17 11:19:58.588270
+the files: ['2023-12-08_16-27-44__2023-12-17_10-14-01_IsraelSentimentTweetEurope_classified.xlsx']
+was merged into the file: all_data_uk__updated_to_2023-12-09__22_44.xlsx
+
+At: 2023-12-18 10:43:11.604675
+the files: ['2023-12-14_08-27-06__2023-12-17_18-45-34_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-14__09_22.xlsx
+
+At: 2023-12-18 10:55:23.659485
+the files: ['2023-12-17_18-45-34__2023-12-18_09-17-08_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-18__10_43.xlsx
+
+At: 2023-12-19 11:13:23.877490
+the files: ['2023-12-18_09-17-08__2023-12-19_10-06-47_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-18__10_55.xlsx
+
+At: 2023-12-20 13:42:36.391464
+the files: ['2023-12-19_10-06-47__2023-12-20_09-23-31_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-19__11_13.xlsx
+
+At: 2023-12-25 13:35:43.097579
+the files: ['2023-12-24_14-33-49__2023-12-25_10-30-38_IsraelSentimentTweet_classified.xlsx', '2023-12-20_09-23-31__2023-12-24_14-33-49_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-20__13_42.xlsx
+
+At: 2023-12-26 13:15:24.896302
+the files: ['2023-12-25_10-30-38__2023-12-26_11-36-06_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-25__13_35.xlsx
+
+At: 2023-12-28 10:56:01.241856
+the files: ['2023-12-26_11-36-06__2023-12-27_11-58-02_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-26__13_15.xlsx
+
+At: 2024-01-02 14:07:43.593985
+the files: ['2023-12-28_11-39-00__2023-12-31_16-15-43_IsraelSentimentTweet_classified.xlsx', '2023-12-27_11-58-02__2023-12-28_11-39-00_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2023-12-28__10_56.xlsx
+
+At: 2024-01-11 16:54:54.904355
+the files: ['2024-01-09_13-57-05__2024-01-10_11-41-58_IsraelSentimentTweet_classified.xlsx', '2024-01-03_15-43-35__2024-01-07_15-12-20_IsraelSentimentTweet_classified.xlsx', '2024-01-07_15-12-20__2024-01-09_13-57-05_IsraelSentimentTweet_classified.xlsx', '2024-01-02_12-08-34__2024-01-03_15-43-35_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2024-01-02__14_07.xlsx
+
+At: 2024-01-15 18:19:46.226578
+the files: ['2024-01-10_11-41-58__2024-01-14_13-22-28_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2024-01-11__16_54.xlsx
+
+At: 2024-01-28 20:00:48.649610
+the files: ['2024-01-23_17-00-43__2024-01-24_17-42-52_IsraelSentimentTweet_classified.xlsx', '2024-01-20_16-35-23__2024-01-23_17-00-43_IsraelSentimentTweet_classified.xlsx', '2024-01-19_15-56-06__2024-01-20_16-35-23_IsraelSentimentTweet_classified.xlsx', '2024-01-17_17-16-30__2024-01-18_15-07-38_IsraelSentimentTweet_classified.xlsx', '2024-01-16_11-13-49__2024-01-17_17-16-30_IsraelSentimentTweet_classified.xlsx', '2024-01-14_13-22-28__2024-01-16_11-13-49_IsraelSentimentTweet_classified.xlsx', '2024-01-18_15-07-38__2024-01-19_15-56-06_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2024-01-15__18_19.xlsx
+
+At: 2024-02-20 16:33:51.780821
+the files: ['2024-02-07_16-49-45__2024-02-11_17-37-26_IsraelSentimentTweet_classified.xlsx', '2024-02-11_17-37-26__2024-02-12_18-26-02_IsraelSentimentTweet_classified.xlsx', '2024-02-12_18-26-02__2024-02-13_15-30-23_IsraelSentimentTweet_classified.xlsx', '2024-01-31_14-56-03__2024-02-04_17-38-52_IsraelSentimentTweet_classified.xlsx', '2024-02-04_17-38-52__2024-02-07_16-49-45_IsraelSentimentTweet_classified.xlsx', '2024-01-29_11-10-35__2024-01-31_14-56-03_IsraelSentimentTweet_classified.xlsx', '2024-01-28_18-54-21__2024-01-29_11-10-35_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us__updated_to_2024-01-28__20_00.xlsx
+
+At: 2024-03-13 11:42:35.150481
+the files: ['2024-02-25_11-48-41__2024-02-29_12-13-14_IsraelSentimentTweet_classified.xlsx', '2024-02-29_12-13-14__2024-03-04_15-21-53_IsraelSentimentTweet_classified.xlsx', '2024-02-20_19-40-40__2024-02-22_16-14-29_IsraelSentimentTweet_classified.xlsx', '2024-02-22_16-14-29__2024-02-25_11-48-41_IsraelSentimentTweet_classified.xlsx', '2024-02-13_15-30-23__2024-02-16_16-38-54_IsraelSentimentTweet_classified.xlsx', '2024-02-16_16-38-54__2024-02-20_19-40-40_IsraelSentimentTweet_classified.xlsx', '2024-01-24_17-42-52__2024-01-28_18-54-21_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-02-20__16_33.xlsx
+
+At: 2024-03-21 19:56:50.976186
+the files: []
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-03-13__11_42.xlsx
+
+At: 2024-03-25 12:51:38.001163
+the files: ['2024-03-17_13-54-17__2024-03-21_16-31-23_IsraelSentimentTweet_classified.xlsx', '2024-03-12_16-51-02__2024-03-17_13-54-17_IsraelSentimentTweet_classified.xlsx', '2024-03-04_15-21-53__2024-03-12_16-51-02_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-03-21__19_56.xlsx
+
+At: 2024-03-25 16:31:08.647271
+the files: ['2024-03-21_16-31-23__2024-03-25_13-05-58_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-03-25__12_51.xlsx
+
+At: 2024-04-09 12:45:21.940203
+the files: []
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-03-25__16_31.xlsx
+
+At: 2024-04-09 13:06:26.857180
+the files: []
+was merged into the file: all_data_us_HouthisTweet__updated_to_2024-01-01__00_00.xlsx
+
+At: 2024-04-09 13:11:28.185550
+the files: ['2024-02-09_19-38-52__2024-02-17_19-25-06_HouthisTweet_classified.xlsx', '2024-03-05_16-37-43__2024-03-28_19-02-20_HouthisTweet_classified.xlsx', '2024-02-05_19-19-08__2024-02-09_19-38-52_HouthisTweet_classified.xlsx', '2024-02-01_18-19-04__2024-02-05_19-19-08_HouthisTweet_classified.xlsx', '2024-01-28_18-13-19__2024-02-01_18-19-04_HouthisTweet_classified.xlsx', '2024-01-27_12-10-00__2024-01-28_18-13-19_HouthisTweet_classified.xlsx', '2024-01-21_18-42-15__2024-01-27_12-10-38_HouthisTweet_classified.xlsx', '2024-01-12_15-08-46__2024-01-21_18-42-15_HouthisTweet_classified.xlsx']
+was merged into the file: all_data_us_HouthisTweet__updated_to_2024-01-01__00_00.xlsx
+
+At: 2024-04-21 14:37:40.731409
+the files: ['2024-04-03_11-56-13__2024-04-04_13-58-16_IsraelSentimentTweet_classified.xlsx', '2024-03-26_00-00-00__2024-04-03_11-56-13_IsraelSentimentTweet_classified.xlsx', '2024-03-25_13-05-58__2024-03-27_16-46-52_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-04-09__12_45.xlsx
+
+At: 2024-04-21 14:50:52.044494
+the files: ['2024-04-10_19-35-20__2024-04-21_11-20-55_IsraelSentimentTweet_classified.xlsx', '2024-04-04_13-58-16__2024-04-10_19-35-20_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-04-21__14_37.xlsx
+
+At: 2024-05-05 15:56:43.381713
+the files: ['2024-05-01_17-45-27__2024-05-05_13-48-11_IsraelSentimentTweet_classified.xlsx', '2024-04-21_11-20-55__2024-05-01_17-45-27_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-04-21__14_50.xlsx
+
+At: 2024-05-21 15:01:02.134205
+the files: ['2024-05-05_13-48-11__2024-05-21_11-30-29_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-05-05__15_56.xlsx
+
+At: 2024-05-30 16:11:10.273965
+the files: ['2024-05-21_11-30-29__2024-05-30_14-13-19_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-05-21__15_01.xlsx
+
+At: 2024-06-04 15:05:35.911831
+the files: ['2024-05-30_14-13-19__2024-06-04_14-18-37_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-05-30__16_11.xlsx
+
+At: 2024-06-05 14:45:18.253020
+the files: ['2024-06-04_14-18-37__2024-06-05_14-24-14_IsraelSentimentTweet_classified.xlsx']
+was merged into the file: all_data_us_IsraelSentimentTweet__updated_to_2024-06-04__15_05.xlsx
+

@@ -1,0 +1,502 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Load libraries 
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(readr)
+library(ggrepel)
+library(rstatix)
+library(readxl)
+library(openxlsx)
+library(jsonlite)
+
+```
+
+```{r}
+calc_correlation <- function(data,x,y){
+  
+  #calculate correlations
+  pearson_correlation <-cor.test(x= data[[x]], y= data[[y]], method = c( "pearson"))
+  spearman_correlation <-cor.test(x= data[[x]], y= data[[y]], method = c( "spearman"))
+  
+	correlation_table <- tibble(x=  x,
+	                            y= y,
+	                            test = c("pearson", "spearman"),
+	                            correlation_coef = c(pearson_correlation$estimate, spearman_correlation$estimate),
+	                            p_value = c(pearson_correlation$p.value, spearman_correlation$p.value))
+
+	return(correlation_table)
+	
+  
+}
+```
+
+
+# Load metadata
+```{r}
+
+
+metadata_path <- "../metadata/metadata.xlsx"
+metadata_gov_path <- "../metadata/metadata_gov.xlsx"
+
+metadata <- readxl::read_xlsx(metadata_path)
+metadata_gov <- readxl::read_xlsx(metadata_gov_path)
+
+
+```
+
+# Load data
+```{r}
+
+#Set attack date
+attack_date <- as.POSIXct("2023-10-07 06:00:00", tz = "UTC")
+
+#List of retired members
+ret_members <- c("replouiegohmert", "repkevinbrady", "jimlangevin","reppeterdefazio", "repmondaire", "repfredupton", "repseanmaloney","repmeijer","repspeier", "repmobrooks")
+
+#Load and tidy data
+data_numeric <- read_excel("../data/all_data_us__updated_to_2023-12-19__11_13.xlsx")%>%
+  select(-country , -conflict_sentiment)%>%
+  rename(conflict_sentiment = conflict_sentiment_v)%>%
+  mutate(conflict_sentiment = as.numeric(conflict_sentiment),
+         conflict_sentiment_chr = case_when(conflict_sentiment == 0 ~ "not_related",
+                                            conflict_sentiment == 1 ~ "pro_palestinian",
+                                            conflict_sentiment == 2 ~ "complex_attitude",
+                                            conflict_sentiment == 3 ~ "pro_israeli",
+                                            conflict_sentiment == 9 ~ "ambiguous"),
+         conflict_sentiment_chr = factor(conflict_sentiment_chr, 
+                                         levels = c("not_related","ambiguous", "pro_palestinian", "complex_attitude", "pro_israeli")),
+         is_conflict_related = if_else(conflict_sentiment == 0, true = "not_related", false = "conflict_related"),
+         conflict_sentiment_rank = case_when(conflict_sentiment == 1 ~ -1,
+                                            conflict_sentiment == 2 ~ 0,
+                                            conflict_sentiment == 3 ~ 1),
+         day = as.Date(upload_date),
+         day_of_week = wday(upload_date),
+        n_week_from_7_10 = difftime(upload_date, attack_date, units = "weeks"),
+        n_week_from_7_10 = round(as.numeric(n_week_from_7_10))
+        )%>%
+  # Fix names
+  mutate(username =  str_to_lower(username),
+        username = if_else(username == "ossoff" ,true = "senossoff", false = username),
+         username = if_else(username == "claudiatenney", true = "reptenney", false = username),
+         username = if_else(username == "repschakowsky", true = "janschakowsky", false = username),
+        username = if_else(username == "rudyyakym", true = "reprudyyakym", false = username),
+        username = if_else(username == "patryanuc", true = "reppatryanny",  false = username),
+        username = if_else(username == "michaelgwaltz", true = "repwaltzpress", false = username),
+        username = if_else(username == "marypeltola", true = "rep_peltola", false = username),
+        username = if_else(username == "aoc", true = "repaoc", false = username),
+        username = if_else(username == "leadermcconnell", true = "senatemajldr", false = username),
+        username = if_else(username == "anthonydespo", true = "repdesposito", false = username),
+        username = if_else(username == "teamcmr", true = "cathymcmorris", false = username),
+        username = if_else(username == "summerforpa", true = "repsummerlee", false = username),
+        username = if_else(username == "rokhanna", true = "reprokhanna", false = username),
+        username = if_else(username == "senlaphonza", true = "laphonzab", false = username),
+        username = if_else(username == "jeffjacksonnc", true = "repjeffjackson", false = username),
+        username = if_else(username == "jaredemoskowitz", true = "repmoskowitz", false = username)
+        )%>%
+  # remove data from retired members
+  filter(!(username %in% ret_members))%>%
+  rename_all(~str_replace_all(tolower(.), " ", "_"))%>%
+  # remove users of goverment
+  filter(!(username %in% metadata_gov$username))
+
+# Calculate distance from latest time point
+last_data_point <- data_numeric%>%
+  slice_max(day)%>%
+  pull(day)%>%
+  unique()
+
+print(last_data_point)
+
+data_numeric <- data_numeric%>%
+  mutate(diff_from_latest_datapoint = as.numeric(difftime(day, last_data_point, units = "days")))
+
+```
+
+
+# General statistics
+
+## Tweet frequncy
+Calculate genral statistics:
+1. number of conflict related tweets per day
+2. number of conflict related tweets per person
+
+```{r}
+# Total number of tweets per day
+ggplot(data_numeric, aes(x = day, fill = is_conflict_related))+
+  geom_bar()+
+  theme_minimal(base_size =15)+
+  labs(x = "Date", y = "Number of members", title = "Number of tweets per day")
+
+# Number of users tweeted per day
+data_numeric%>%
+  filter(is_conflict_related == "conflict_related")%>%
+  select(username, day,is_conflict_related)%>%
+  unique()%>%
+  count(day, is_conflict_related)%>%
+  ggplot(aes(x = day, y = n, fill = is_conflict_related))+
+  geom_col()+
+  theme_minimal(base_size =15)+
+  labs(x = "Date", y = "Number of members", title = "Number of tweeting members per day - conflict related")
+
+```
+
+## Class statistics
+```{r fig.height=2.5, fig.width=5}
+
+#Overall is_conflict_related count
+ggplot(data_numeric, aes(y = is_conflict_related))+
+  geom_bar(stat = "count", aes(fill = is_conflict_related))+
+  geom_text(stat = "count", aes(label = stat(count)), hjust =1, color = "white")+
+  theme_bw(base_size = 15)+
+  labs(x = "Count", y = "is conflict related")+
+    theme(legend.position = "none")+
+  scale_fill_manual(values = c("grey20", "grey80"))
+
+#Overall conflict_sentiment count
+data_numeric%>%
+  filter(conflict_sentiment != 0)%>%
+  filter(conflict_sentiment != 9)%>%
+  count(conflict_sentiment_chr)%>%
+  ggplot(., aes(y = conflict_sentiment_chr, x= n))+
+  geom_col(aes(fill = conflict_sentiment_chr), color = "black", size = 0.5)+
+  geom_text( aes(label = n), hjust =0, color = "black")+
+  theme_bw(base_size = 15)+
+  labs(x = "Count", y = "Sentiment")+
+  scale_fill_manual(values = c("#e08214", "#ffffbf", "#5aae61"))+
+  theme(legend.position = "none")+
+  xlim(c(0,8500))
+
+```
+
+## Tweet class overtime
+```{r}
+#Number of tweets per day & sentiment
+data_numeric%>%
+  filter(is_conflict_related == "conflict_related")%>%
+  filter(conflict_sentiment != 9)%>%
+  count(conflict_sentiment_chr, day_est)%>%
+  ggplot(aes(x = day_est, y = n,fill = conflict_sentiment_chr))+
+  geom_col(color = "grey30")+
+  theme_minimal(base_size = 12)+
+  labs(x= "Date", y = "Tweet count")+
+  theme(legend.position = "none")+
+  scale_fill_manual(values = c("#e08214", "#ffffbf", "#5aae61"))
+
+
+#Frequency of tweets per day & sentiment
+freq_sentiment <- data_numeric%>%
+  filter(is_conflict_related == "conflict_related")%>%
+    # filter(conflict_sentiment != 9)%>%
+  left_join(metadata)%>%
+  filter(legislation_body != "goverment")%>%
+  count(conflict_sentiment_chr, day, party)%>%
+  pivot_wider(names_from = conflict_sentiment_chr, values_from = n, values_fill = 0)%>%
+  mutate(total = pro_palestinian+complex_attitude+pro_israeli+ambiguous,
+         freq_pro_palestinian = pro_palestinian/total,
+         freq_complex_attitude = complex_attitude/total,
+         freq_pro_israeli = pro_israeli/total,
+         freq_ambiguous = ambiguous/total)%>%
+  select(day, freq_pro_palestinian, freq_complex_attitude, freq_pro_israeli,freq_ambiguous, party)%>%
+  rename(pro_palestinian = freq_pro_palestinian, 
+         complex_attitude= freq_complex_attitude,
+         pro_israeli = freq_pro_israeli,
+         ambiguous = freq_ambiguous)%>%
+  pivot_longer(-c(day, party), names_to = "sentiment", values_to = "freq")%>%
+  mutate(sentiment = factor(sentiment, levels= c("ambiguous", "pro_palestinian", "complex_attitude", "pro_israeli")))
+
+#plot
+freq_sentiment%>%
+  ggplot(., aes(x = day, y = freq, fill = sentiment))+
+  geom_col()+
+  scale_fill_manual(values = c("grey90", "#e08214", "#ffffbf", "#276419"))+
+  theme_minimal(base_size = 15)+
+  labs(x = "Date", y = "Relative abundence (%)")+
+  facet_wrap(~party, ncol = 1)
+
+
+```
+## Time of latest tweet
+
+```{r}
+last_data_point <- data_numeric%>%
+  slice_max(day)%>%
+  pull(day)%>%
+  unique()
+
+time_of_last_tweet <- data_numeric %>%
+  filter(is_conflict_related == "conflict_related") %>%
+  filter(conflict_sentiment!=9) %>%
+  group_by(username)%>%
+  slice_max(day)%>%
+  ungroup()%>%
+  mutate(diff_time = abs(as.numeric(difftime(day, last_data_point, units = "days"))),
+         diff_group = case_when(diff_time<=7 ~ "week",
+                                diff_time>7 & diff_time<=30 ~ "month",
+                                diff_time> 30 ~ "longer than month"))%>%
+  left_join(metadata)%>%
+  mutate(progressive = if_else(username %in% metadata_d_party$username & party == "Democratic", 
+                               true = "progressive",
+                               false = "not_progressive"))
+```
+
+# Member-party level analysis
+
+## Intrest overtime
+
+```{r}
+
+# Calculate interst
+temporal_intrest <- data_numeric%>%
+  left_join(metadata, join_by = "username")%>%
+  count(day, party, is_conflict_related, day_of_week, legislation_body)%>%
+  pivot_wider(names_from = is_conflict_related, values_from = n)%>%
+  mutate(intrest = conflict_related/(conflict_related+not_related),
+         total_n = conflict_related+not_related,
+         is_weekend = if_else(day_of_week %in% c(6,7), true = 1, false = 0),
+         diff_from_0710 = as.numeric(day - as.Date("2023-10-07")))
+
+# Plot
+ggplot(temporal_intrest, aes(x = day, y = intrest, color = party))+
+  geom_smooth(fill = "grey70", method = "lm")+
+  geom_point(size = 3, alpha = 0.75)+
+  theme_minimal(base_size = 15)+
+  scale_color_manual(values = c("#457b9d", "#e63946"), "Party")+
+  labs(x= "Date", y = "Intrest")+
+  facet_wrap(~legislation_body, ncol = 1)
+
+# Linear regression modeling & correlation
+temporal_intrest%>%
+  filter(day >= as.POSIXct("2023-12-01 00:00:00"))%>%
+  lm(., formula = intrest~day + is_weekend + legislation_body + party)%>%
+  summary()
+
+temporal_intrest%>%
+  filter(day >= as.POSIXct("2023-12-01 00:00:00"))%>%
+  calc_correlation(., x= "intrest", y="diff_from_0710")
+
+```
+## Intrest internal\external
+freq of 9 vs 1/2/3 from all conflict_related tweets
+
+```{r}
+
+#Orgenize data
+temporal_intrest_external <- data_numeric%>%
+  filter(day >= as.POSIXct("2023-11-05 00:00:00"))%>%
+  filter(is_conflict_related == "conflict_related")%>%
+  left_join(metadata, join_by = "username")%>%
+  mutate(external_internal = if_else(conflict_sentiment == 9,  true ="intrnal", false = "external"))%>%
+  count(day, external_internal)%>%
+  pivot_wider(names_from = external_internal, values_from = n)%>%
+  mutate(freq_internal = 100*intrnal/(intrnal+external),
+         total_n = intrnal+external,
+         diff_from_0710 = as.numeric(day - as.Date("2023-10-07")))
+  
+# Regression model & correlation
+temporal_intrest_external%>%
+  lm(., formula = freq_internal~day)%>%
+  summary()
+
+calc_correlation(temporal_intrest_external, x= "freq_internal", y="diff_from_0710")
+
+# Plot
+ggplot(temporal_intrest_external, aes(x= day, y = freq_internal))+
+  geom_smooth(method = "lm", color = "grey20", fill = "grey90")+
+  geom_point(size = 4, alpha = 0.75, color = "#0A9396")+
+  theme_minimal(base_size = 15)+
+  labs(x= "Date", y = "Domestic policy(%)", 
+       title = "Increased discussion on domestic policy aspects")
+
+```
+
+## House and party position
+
+```{r fig.width=14, fig.height=7}
+
+# Calculate summery statistics per user
+
+user_summery_stat <- data_numeric%>%
+  group_by(username)%>%
+  summarise(mean_like_amount = mean(like_amount),
+            mean_retweet = mean(retweet_amount),
+            mean_comments = mean(comments_amount),
+            n_tweet = n())
+
+# User interest in Israel
+user_intrest <- data_numeric%>%
+  group_by(username, is_conflict_related)%>%
+  summarise(n = n())%>%
+  ungroup()%>%
+  pivot_wider(names_from = is_conflict_related, values_from  = n, values_fill = 0)%>%
+  mutate(intrest = conflict_related / (conflict_related + not_related))
+
+# User sentiment to Israel
+user_sentiment <- data_numeric%>%
+  filter(is_conflict_related == "conflict_related")%>%
+  filter(conflict_sentiment != 9)%>%
+  group_by(username)%>%
+  summarise(mean_sentiment = mean(conflict_sentiment_rank),
+            mode_sentiment = mode(conflict_sentiment_rank))
+
+user_summery_stat <- user_summery_stat%>%
+  left_join(user_sentiment, by = "username")%>%
+  left_join(user_intrest, by= "username")%>%
+  left_join(metadata, by= "username")%>%
+  mutate(text_for_plot = if_else(mean_sentiment<0, true = full_name, false = ""))
+
+# Plot interest and sentiment
+user_summery_stat%>%
+  filter(legislation_body != "government")%>%
+  ggplot(., aes(x = mean_sentiment, y = intrest ))+
+  geom_vline(xintercept = 0, size = 1.5, color = "grey30")+
+  geom_point(alpha = 0.5, aes(fill = mean_sentiment, size = n_tweet), color = "black", shape = 21)+
+  theme_minimal(base_size = 20)+
+  scale_fill_distiller(palette = "RdYlBu", direction = 1)+
+  labs(y = "Intrest", x = "Sentiment")+
+  facet_grid(vars(legislation_body),vars(party))+
+  geom_label_repel(aes(label = text_for_plot))
+
+```
+
+
+## Latest position
+Here we map the postion of members according to their last tweet
+```{r}
+# Find there last position in every timepoint
+date_list <- data_numeric%>%
+  distinct(day)%>%
+  pull()
+
+latest_position <- map(.x = date_list,
+    .f = ~{
+      results <- data_numeric%>%
+        filter(is_conflict_related == "conflict_related")%>%
+        filter(conflict_sentiment != 9)%>%
+        filter(day<=.x)%>%
+        group_by(username)%>%
+        slice_max(upload_date)%>%
+        ungroup()%>%
+        left_join(metadata, by = "username")%>%
+        filter(legislation_body != "goverment")%>%
+        count(conflict_sentiment_chr, party, legislation_body)%>%
+        mutate(day = .x)%>%
+      return(results)
+    })%>%
+  bind_rows()
+
+#Plot all
+ggplot(latest_position, aes(x = day, y = n))+
+  geom_col(aes(fill = conflict_sentiment_chr), color = "grey10")+
+  theme_minimal(base_size = 15)+
+  scale_fill_manual(values = c("#e08214", "#ffffbf", "#5aae61"), "latest sentiment")+
+  labs(x = "Date", y = "Number of members")+
+  facet_grid(cols = vars(party), rows = vars(legislation_body))
+
+# Regression model
+
+latest_position%>%
+  filter(party == "Democratic")%>%
+  filter(legislation_body == "House of Representatives",
+         conflict_sentiment_chr  == "pro_palestinian")%>%
+  filter(day >= as.POSIXct("2023-12-01"))%>%
+  mutate(distance_in_days  = abs(as.numeric(difftime(attack_date, day, units = "days"))))%>%
+  lm(formula = n~distance_in_days, data = .)%>%
+  summary()
+
+
+```
+
+# Others 
+
+## Appearance of pro_palestinian agenda
+When is the first time that member post tweet with class 1
+```{r}
+
+# Find the first date in which a member post tweet with class 1
+first_pro_p_tweet <- data_numeric%>%
+  left_join(metadata, by = "username")%>%
+  filter(party == "Democratic")%>%
+  filter(conflict_sentiment_chr == "pro_palestinian")%>%
+  group_by(username)%>%
+  slice_min(upload_date, n = 1)%>%
+  ungroup()
+
+tmp <- first_pro_p_tweet%>%
+  count(day)%>%
+  mutate(cumsum = cumsum(n))
+         
+n_pro_p_members <- tibble(day = seq(min(tmp$day), last_data_point, by = "days"))%>%
+  left_join(tmp, by = "day")%>%
+  mutate(cumsum = if_else(is.na(cumsum), true = lag(cumsum), false = cumsum))%>%
+  fill(cumsum, .direction = "up")
+
+# Plot
+ggplot(n_pro_p_members, aes(x = day, y = cumsum))+
+  geom_col(color = "white")+
+  theme_minimal(base_size =15)+
+  labs(y = "# Congress members", x = "Date", title = "Cumulative number of members with a pro-palstenian tweet")+
+  geom_text(aes(label = cumsum), size =3, vjust = -0.2)
+
+```
+
+## Appearance of complex agenda
+When is the first time that member post tweet with class 2
+
+```{r}
+first_complex_tweet <- data_numeric%>%
+  filter(conflict_sentiment_chr == "complex_attitude")%>%
+  group_by(username)%>%
+  slice_min(upload_date, n = 1)%>%
+  ungroup()%>%
+  left_join(metadata)
+
+count_per_day_complex <- first_complex_tweet%>%
+  count(day, party, legislation_body)%>%
+  group_by(party, legislation_body)%>%
+  mutate(cum_n = cumsum(n))%>%
+  ungroup()
+
+ggplot(count_per_day_complex, aes(x = day, y = cum_n, color = party))+
+  geom_point(size = 3)+
+  geom_line()+
+  theme_minimal(base_size =15)+
+  labs(y = "# Congress members", x = "Date")+
+  geom_vline(xintercept = 13, linetype= "dashed", color = "grey30", size = 0.75)+
+  geom_vline(xintercept = 17, linetype= "dashed", color = "grey30", size = 0.75)+
+  scale_color_manual(values = c("#457b9d", "#e63946"), "Party")+
+  facet_wrap(~legislation_body, ncol = 1, scale = "free")
+
+```
+
+## Examples from specific users
+```{r fig.width=9, fig.height=4}
+
+spacific_user <- "repbeccab"
+
+
+tmp <- data_numeric%>%
+  filter(username == spacific_user)%>%
+  filter(is_conflict_related == "conflict_related")%>%
+  filter(conflict_sentiment != 9)%>%
+  select(day, conflict_sentiment_chr)
+
+data_for_plot <- ratio_across_dates_sum%>%
+  filter(username == spacific_user)%>%
+  filter(date %in% tmp$day)%>%
+  left_join(tmp, by = c("date" = "day"))
+
+ggplot(data_for_plot, aes(x = date, y=sentiment))+
+  geom_line(size = 3, color = "grey80", alpha = 0.5)+
+  geom_point(size = 4, shape = 21, aes(fill = conflict_sentiment_chr))+
+  theme_minimal(base_size = 15)+
+  labs(x = "Date", y = "Sentiment", title = "Becca Balint")+
+  ylim(c(-1, 1))+
+  scale_fill_manual(values = c("#e08214", "#ffffbf", "#276419"), "Sentiment")
+
+```

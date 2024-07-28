@@ -1,0 +1,13 @@
+__pycache__
+data/
+test.py
+clustering.ipynb
+tests.ipynb
+credentials.py
+df_test_1.csv
+embed_test_1.csv
+tests_news.ipynb
+.spyproject/
+/notebook/.ipynb_checkpoints
+/experiments/temp
+/experiments/wandb/
