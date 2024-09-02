@@ -4,7 +4,7 @@ import { Client } from 'ssh2';
 const host = '20.84.72.212'; // כתובת ה-IP של ה-VM שלך
 const port = 22; // פורט ה-SSH (ברירת מחדל היא 22)
 const username = 'tzvi'; // שם המשתמש שלך
-const privateKey = '-----BEGIN OPENSSH PRIVATE KEY-----\n...'; // מפתח פרטי שלך
+const password = 'xukved-zypFaf-9xebdy'; // הסיסמה שלך
 
 const conn = new Client();
 
@@ -27,5 +27,5 @@ conn.on('ready', () => {
     host: host,
     port: port,
     username: username,
-    privateKey: privateKey
+    password: password
 });
