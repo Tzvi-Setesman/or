@@ -1,1 +1,36 @@
-כ
+import { FoundryClient, PublicClientAuth } from '@especterfront/sdk';
+
+// קריאה למשתני הסביבה (environment variables)
+const apiUrl = import.meta.env.VITE_API_URL;
+const clientId = import.meta.env.VITE_CLIENT_ID;
+const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
+
+// פונקציה לבדיקת משתני הסביבה
+function checkEnv(variable: string | undefined, name: string): asserts variable is string {
+    if (variable === undefined || variable === null) {
+        throw new Error(`Missing environment variable: ${name}`);
+    }
+}
+
+// בדיקת כל אחד מהמשתנים הנדרשים
+checkEnv(apiUrl, 'VITE_API_URL');
+checkEnv(clientId, 'VITE_CLIENT_ID');
+checkEnv(redirectUrl, 'VITE_REDIRECT_URL');
+
+// אתחול הלקוח (Client) לאינטראקציה עם ה-SDK
+const client = new FoundryClient({
+    url: apiUrl,
+    auth: new PublicClientAuth({
+        clientId,
+        url: apiUrl,
+        redirectUrl,
+        scopes: [
+            'api:read-data',
+            'api:write-data',
+            'api:dataset-read',
+        ],
+    }),
+});
+
+// ייצוא הלקוח כדי שישמש בחלקים אחרים של התוכנה
+export default client;
