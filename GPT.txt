@@ -1,1 +1,31 @@
-https://we.tl/t-gyyOjnhRBO
+import { Client } from 'ssh2';
+
+// פרטי החיבור שלך
+const host = '20.84.72.212'; // כתובת ה-IP של ה-VM שלך
+const port = 22; // פורט ה-SSH (ברירת מחדל היא 22)
+const username = 'tzvi'; // שם המשתמש שלך
+const privateKey = '-----BEGIN OPENSSH PRIVATE KEY-----\n...'; // מפתח פרטי שלך
+
+const conn = new Client();
+
+conn.on('ready', () => {
+    console.log('Client :: ready');
+    
+    conn.exec('uptime', (err, stream) => {
+        if (err) throw err;
+        
+        stream.on('close', (code, signal) => {
+            console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+            conn.end();
+        }).on('data', (data) => {
+            console.log('STDOUT: ' + data);
+        }).stderr.on('data', (data) => {
+            console.log('STDERR: ' + data);
+        });
+    });
+}).connect({
+    host: host,
+    port: port,
+    username: username,
+    privateKey: privateKey
+});
